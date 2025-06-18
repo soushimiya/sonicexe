@@ -1,0 +1,23 @@
+class SonicExe extends CharacterInfoBase
+{
+
+	public function new(){
+		super();
+
+		info.spritePath = "xeno/sonicexe";
+		info.frameLoadType = setSparrow();
+		
+		info.iconName = "sonicexe";
+
+		addByPrefix("idle", offset(), "SONICmoveIDLE", 24, loop(false));
+		addByPrefix("singLEFT", offset(180, 20), "SONICmoveLEFT", 24, loop(false));
+		addByPrefix("singDOWN", offset(50, -85), "SONICmoveDOWN", 24, loop(false));
+		addByPrefix("singUP", offset(90, 100), "SONICmoveUP", 24, loop(false));
+		addByPrefix("singRIGHT", offset(-45, 60), "SONICmoveRIGHT", 24, loop(false));
+		addByPrefix("laugh", offset(45, 30), "SONIClaugh", 24, loop(false));
+
+
+		addExtraData("scale", 0.87);
+		addExtraData("reposition", [0, -10]);
+	}
+}

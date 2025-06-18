@@ -1,6 +1,8 @@
 {
     "freeplayList": [
-        {"portrait": "majin", "songs": ["Endless"]},
+        {"portrait": "too-slow-encore", "songs": ["Too-Slow", "You-Cant-Run", "Triple-Trouble"]},
+        {"portrait": "triple-trouble-encore", "songs": ["Too-Slow-Encore", "You-Cant-Run-Encore", "Triple-Trouble-Encore"]},
+        {"portrait": "majin", "songs": ["Darnell-Bf"]},
         {"portrait": "lordx", "songs": ["Cycles"]},
         {"portrait": "tails-doll", "songs": ["Sunshine", "Soulless"]},
         {"portrait": "fleetway", "songs": ["Chaos"]},

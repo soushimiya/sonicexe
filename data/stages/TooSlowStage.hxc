@@ -1,0 +1,92 @@
+import objects.BGSprite;
+import shaders.DropShadowShader;
+
+class TooSlowStage extends BaseStage
+{
+	var chartBlackBG:FlxSprite;
+
+	public function new()
+	{
+		super();
+
+		name = "TooSlowStage";
+		startingZoom = 0.7;
+
+		var sky:BGSprite = new BGSprite('xeno/polishedP1/BGSky', -600, -200, 1, 1);
+		sky.setGraphicSize(Std.int(sky.width * 1.3));
+		addToBackground(sky);
+
+		var midTrees1:BGSprite = new BGSprite('xeno/polishedP1/TreesMidBack', -600, -200, 0.7, 0.7);
+		midTrees1.setGraphicSize(Std.int(midTrees1.width * 1.3));
+		addToBackground(midTrees1);
+
+		var treesmid:BGSprite = new BGSprite('xeno/polishedP1/TreesMid', -600, -200, 0.7, 0.7);
+		midTrees1.setGraphicSize(Std.int(midTrees1.width * 1.3));
+		addToBackground(treesmid);
+
+		var treesoutermid:BGSprite = new BGSprite('xeno/polishedP1/TreesOuterMid1', -600, -200, 0.7, 0.7);
+		treesoutermid.setGraphicSize(Std.int(treesoutermid.width * 1.3));
+		addToBackground(treesoutermid);
+
+		var treesoutermid2:BGSprite = new BGSprite('xeno/polishedP1/TreesOuterMid2', -600, -200, 0.7, 0.7);
+		treesoutermid2.setGraphicSize(Std.int(treesoutermid2.width * 1.3));
+		addToBackground(treesoutermid2);
+
+		var lefttrees:BGSprite = new BGSprite('xeno/polishedP1/TreesLeft', -600, -200, 0.7, 0.7);
+		lefttrees.setGraphicSize(Std.int(lefttrees.width * 1.3));
+		addToBackground(lefttrees);
+
+		var righttrees:BGSprite = new BGSprite('xeno/polishedP1/TreesRight', -600, -200, 0.7, 0.7);
+		righttrees.setGraphicSize(Std.int(righttrees.width * 1.3));
+		addToBackground(righttrees);
+
+		var outerbush:BGSprite = new BGSprite('xeno/polishedP1/OuterBush', -600, -150, 1, 1);
+		outerbush.setGraphicSize(Std.int(outerbush.width * 1.3));
+		addToBackground(outerbush);
+
+		var outerbush2:BGSprite = new BGSprite('xeno/polishedP1/OuterBushUp', -600, -200, 1, 1);
+		outerbush2.setGraphicSize(Std.int(outerbush2.width * 1.3));
+		addToBackground(outerbush2);
+
+		var grass:BGSprite = new BGSprite('xeno/polishedP1/Grass', -600, -150, 1, 1);
+		grass.setGraphicSize(Std.int(grass.width * 1.3));
+		addToBackground(grass);
+
+		var deadegg:BGSprite = new BGSprite('xeno/polishedP1/DeadEgg', -600, -200, 1, 1);
+		deadegg.setGraphicSize(Std.int(deadegg.width * 1.3));
+		addToBackground(deadegg);
+
+		var deadknux:BGSprite = new BGSprite('xeno/polishedP1/DeadKnux', -600, -200, 1, 1);
+		deadknux.setGraphicSize(Std.int(deadknux.width * 1.3));
+		addToBackground(deadknux);
+
+		var deadtailz:BGSprite = new BGSprite('xeno/polishedP1/DeadTailz', -700, -200, 1, 1);
+		deadtailz.setGraphicSize(Std.int(deadtailz.width * 1.3));
+
+		addToBackground(deadtailz);
+
+		var deadtailz1:BGSprite = new BGSprite('xeno/polishedP1/DeadTailz1', -600, -200, 1, 1);
+		deadtailz1.setGraphicSize(Std.int(deadtailz1.width * 1.3));
+		addToBackground(deadtailz1);
+
+		var deadtailz2:BGSprite = new BGSprite('xeno/polishedP1/DeadTailz2', -600, -400, 1, 1);
+		deadtailz2.setGraphicSize(Std.int(deadtailz2.width * 1.3));
+		addToBackground(deadtailz2);
+
+		var fgTrees = new BGSprite('xeno/polishedP1/TreesFG', -610, -200, 1.1, 1.1);
+		fgTrees.setGraphicSize(Std.int(fgTrees.width * 1.35));
+		addToForeground(fgTrees);
+
+		var overlay:BGSprite = new BGSprite('xeno/polishedP1/OrangeOverlay', -600, -200, 1, 1);
+		overlay.setGraphicSize(Std.int(overlay.width * 1.3));
+		overlay.blend = BlendMode.ADD;
+		overlay.alpha = 0.14;
+		addToForeground(overlay);
+
+		bfStart.set(750, 750);
+		dadStart.set(40, 750);
+		gfStart.set(400, 600);
+
+		instantStart = true;
+	}
+}

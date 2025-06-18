@@ -1,0 +1,8 @@
+package sonicexe;
+
+class ExeEvents extends Events
+{
+	override function defineEvents() {
+		// addEvent("jumpscare", jumpscare, "scary jump");
+	}
+}

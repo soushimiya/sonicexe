@@ -1,0 +1,48 @@
+{
+	"events": {
+		"events": [
+			[
+				47,
+				84555.5555555556,
+				0,
+				"playAnim;dad;laugh;true"
+			],
+			[
+				48,
+				84888.888888889,
+				0,
+				"playAnim;dad;laugh;true"
+			],
+			[
+				48,
+				85138.888888889,
+				0,
+				"playAnim;dad;laugh;true"
+			],
+			[
+				48,
+				85388.888888889,
+				0,
+				"playAnim;dad;laugh;true"
+			],
+			[
+				48,
+				85638.888888889,
+				0,
+				"playAnim;dad;laugh;true"
+			],
+			[
+				48,
+				85888.888888889,
+				0,
+				"playAnim;dad;laugh;true"
+			],
+			[
+				48,
+				86138.888888889,
+				0,
+				"playAnim;dad;laugh;true"
+			]
+		]
+	}
+}
