@@ -1,0 +1,15 @@
+{
+    "freeplayList": [
+        {"portrait": "majin", "songs": ["Endless"]},
+        {"portrait": "lordx", "songs": ["Cycles"]},
+        {"portrait": "tails-doll", "songs": ["Sunshine", "Soulless"]},
+        {"portrait": "fleetway", "songs": ["Chaos"]},
+        {"portrait": "fatalerror", "songs": ["Fatality"]},
+        {"portrait": "xterion", "songs": ["Substantial", "Digitalized"]},
+        {"portrait": "needlemouse", "songs": ["Round-a-Bout"]},
+        {"portrait": "hog", "songs": ["Hedge", "Manual-Blast"]},
+        {"portrait": "sunky", "songs": ["Milk"]},
+        {"portrait": "sanic", "songs": ["Too-Fest"]},
+        {"portrait": "coldsteel", "songs": ["Personel"]}
+    ]
+}

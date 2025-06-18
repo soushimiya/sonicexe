@@ -1,0 +1,316 @@
+import flixel.util.FlxTimer;
+import flixel.input.gamepad.FlxGamepad;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import extensions.flixel.FlxTextExt;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.sound.FlxSound;
+import flixel.addons.display.FlxBackdrop;
+import haxe.Json;
+import Song;
+import StringTools;
+
+class FreeplayState extends ScriptedState // REWRITE FREEPLAY!?!?!? HELL YEA!!!!!
+{
+    var songList:Array<Dynamic>;
+
+	var whiteshit:FlxSprite;
+
+	var curSelected:Int = 0;
+
+	var curSongSelected:Int = 0;
+
+	var textgrp:FlxTypedGroup<FlxTextExt>;
+
+	var boxgrp:FlxTypedSpriteGroup;
+
+	var bg:FlxSprite;
+	
+	var scrollingBg:FlxBackdrop;
+
+	var cdman:Bool = true;
+
+	var fuck:Int = 0;
+
+	var selecting:Bool = false;
+
+	var charText:FlxTextExt;
+
+	var scoreText:FlxTextExt;
+
+	private static var vocals:FlxSound = null;
+
+
+	override function create()
+	{
+        super.create();
+        if(!FlxG.sound.music.playing)
+            MainMenuState.playMenuMusic();
+
+        songList = Json.parse(Assets.getText(Paths.json("exedata", "data"))).freeplayList;
+
+		whiteshit = new FlxSprite().makeGraphic(1280, 720, 0xFFFFFFFF);
+		whiteshit.alpha = 0;
+
+		bg = new FlxSprite().loadGraphic(Paths.image('menu/bg'));
+		bg.screenCenter();
+		bg.setGraphicSize(1280, 720);
+		add(bg);
+
+		scrollingBg = new FlxBackdrop(Paths.image('menu/freeplay/sidebar'), ScriptingUtil.axisY);
+        scrollingBg.velocity.y = 10;
+		add(scrollingBg);
+
+
+		textgrp = new FlxTypedGroup();
+
+		boxgrp = new FlxTypedSpriteGroup();
+
+		for (i in 0...songList.length)
+		{
+            var box:FlxSprite = new FlxSprite(0, i * 415);
+			box.loadGraphic(Paths.image('menu/freeplay/FreeBox'));
+			boxgrp.add(box);
+			box.ID = i;
+			box.setGraphicSize(Std.int(box.width / 1.7));
+
+			var char:FlxSprite = new FlxSprite(0, i * 415);
+			char.loadGraphic(Paths.image('menu/freeplay/portraits/' + songList[i].portrait));
+			boxgrp.add(char);
+			char.ID = i;
+			char.setGraphicSize(Std.int(box.width / 1.7));
+		}
+
+		boxgrp.x = -335;
+
+		var uhhdumbassline:FlxSprite = new FlxSprite(300).makeGraphic(10, 720, 0xFF000000);
+		add(uhhdumbassline);
+
+		add(boxgrp);
+
+		//add(new FlxSprite().loadGraphic(Paths.image("FreePlayShit"))); // do not.
+
+		add(textgrp);
+
+		scoreText = new FlxTextExt(30, 105, FlxG.width, "");
+		scoreText.setFormat(Paths.font("cdmenu"), 18, 0xFFFFFFFF, "center");
+		scoreText.y -= 36;
+		scoreText.x -= 20;
+		add(scoreText);
+
+        charText = new FlxTextExt(30 , 10, FlxG.width, "majin");
+		charText.setFormat(Paths.font("cdmenu"), 36, 0xFFFFFFFF, "center");
+		charText.y -= 10;
+		charText.x -= 23;
+		add(charText);
+
+		for (i in 0...songList[curSelected].songs.length)
+		{
+			var text:FlxTextExt;
+            text = new FlxTextExt(350, FlxG.height / 2 - 30 * songList[curSelected].songs.length +  i *  30 * songList[curSelected].songs.length, FlxG.width, StringTools.replace(songList[curSelected].songs[i], "-", " "));
+			text.setFormat(Paths.font("cdmenu"), 36, 0xFFFFFFFF, "center");
+			text.ID = i;
+			textgrp.add(text);
+		}
+
+		add(whiteshit);
+	}
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		var upP = FlxG.keys.justPressed.UP || FlxG.keys.justPressed.W;
+		var downP = FlxG.keys.justPressed.DOWN || FlxG.keys.justPressed.S;
+		var accepted = FlxG.keys.justPressed.ENTER;
+
+
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+		if (gamepad != null)
+		{
+			if (gamepad.justPressed.DPAD_UP)
+			{
+				changeSelection(-1);
+			}
+			if (gamepad.justPressed.DPAD_DOWN)
+			{
+				changeSelection(1);
+			}
+		}
+
+		if (cdman)
+		{
+			if (upP)
+			{
+				changeSelection(-1);
+			}
+			if (downP)
+			{
+				changeSelection(1);
+			}
+		}
+
+
+
+		if (Binds.justPressed("menuBack"))
+		{
+			FlxG.sound.play(Paths.sound('cancelMenu'));
+			if (!selecting) FlxG.switchState(new MainMenuState());
+			else
+			{
+				scoreText.text = "";
+				curSongSelected = 0;
+				selecting = false;
+				textgrp.forEach(function(text:FlxTextExt)
+				{
+					FlxTween.cancelTweensOf(text);
+					text.alpha = 1;
+				});
+			}
+		}
+
+
+		if (accepted && cdman && selecting)
+		{
+            cdman = false;
+
+			var songArray:Array<String> = songList[curSelected].songs;
+
+			PlayState.SONG = Song.loadFromJson(songArray[curSongSelected].toLowerCase() + '-hard', songArray[curSongSelected].toLowerCase());
+			PlayState.isStoryMode = false;
+		    PlayState.storyDifficulty = 2;
+            PlayState.loadEvents = true;
+            PlayState.returnLocation = "freeplay";
+            if (FlxG.sound.music != null)
+			    FlxG.sound.music.stop();
+			FlxG.sound.play(Paths.sound('confirmMenu'));
+
+            switchState(new PlayState());
+		}
+		if (accepted && cdman && !selecting)
+		{
+			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+			selecting = true;
+			if (textgrp.members != null)
+				{
+					textgrp.forEach(function(text:FlxTextExt)
+					{
+						FlxTween.cancelTweensOf(text);
+						text.alpha = 1;
+						if (text.ID == curSongSelected)
+						{
+							scoreText.text = "Score: " + Highscore.getScore(songList[curSelected].songs[curSongSelected], 2);
+							FlxTween.tween(text, {alpha: 0.5}, 0.5, {ease: FlxEase.expoOut, type: FlxTween.PINGPONG});
+						}
+					});
+				}
+
+		}
+
+	}
+
+	public static function destroyFreeplayVocals() {
+		if(vocals != null) {
+			vocals.stop();
+			vocals.destroy();
+		}
+	}
+
+	function changeSelection(change:Int = 0)
+	{
+		if (!selecting)
+		{
+			if (change == 1 && curSelected != songList.length - 1)
+			{
+				cdman = false;
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+				FlxTween.tween(boxgrp ,{y: boxgrp.y - 415}, 0.2, {ease: FlxEase.expoOut, onComplete: function(sus:FlxTween)
+					{
+						cdman = true;
+					}
+				});
+
+			}
+			else if (change == -1 && curSelected != 0)
+			{
+				cdman = false;
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+				FlxTween.tween(boxgrp ,{y: boxgrp.y + 415}, 0.2, {ease: FlxEase.expoOut, onComplete: function(sus:FlxTween)
+					{
+						cdman = true;
+					}
+				});
+
+			}
+			if ((change == 1 && curSelected != songList.length - 1) || (change == -1 && curSelected != 0)) // This is a.
+			{
+				if (textgrp.members != null)
+				{
+					textgrp.forEach(function(text:FlxTextExt)
+					{
+						text.destroy();
+					});
+				}
+				curSelected = curSelected + change;
+				for (i in 0...songList[curSelected].songs.length)
+				{
+					var text:FlxTextExt = new FlxTextExt(350, FlxG.height / 2 - 30 * songList[curSelected].songs.length + i *  30 * songList[curSelected].songs.length, FlxG.width, StringTools.replace(songList[curSelected].songs[i], "-", " "));
+					text.setFormat(Paths.font("cdmenu"), 36, 0xFFFFFFFF, "center");
+					text.ID = i;
+					textgrp.add(text);
+				}
+				charText.text = songList[curSelected].portrait;
+			}
+		}
+		else
+		{
+			var songArray:Array<String> = songList[curSelected].songs;
+			var nextSelected = curSongSelected + change;
+			if(nextSelected<0)
+                nextSelected=songArray.length-1;
+			if(nextSelected > songArray.length - 1)
+                nextSelected=0;
+
+			if (curSongSelected!=nextSelected)
+			{
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+				curSongSelected += change;
+				if (textgrp.members != null)
+				{
+					textgrp.forEach(function(text:FlxTextExt)
+					{
+						FlxTween.cancelTweensOf(text);
+						text.alpha = 1;
+						if (text.ID == curSongSelected)
+						{
+							scoreText.text = "Score: " + Highscore.getScore(songArray[curSongSelected], 2);
+							FlxTween.tween(text, {alpha: 0.5}, 0.5, {ease: FlxEase.expoOut, type: FlxTween.PINGPONG});
+						}
+					});
+				}
+			}
+		}
+
+
+		// NGio.logEvent('Fresh');
+
+
+
+	}
+
+}
+
+class SongMetadata
+{
+	public var songName:String = "";
+	public var week:Int = 0;
+	public var songCharacter:String = "";
+
+	public function new(song:String, week:Int, songCharacter:String)
+	{
+		this.songName = song;
+		this.week = week;
+		this.songCharacter = songCharacter;
+	}
+}

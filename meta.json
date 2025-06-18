@@ -5,5 +5,9 @@
 	"api_version": "1.6.0",
 	"mod_version": "2.5.0",
 	"license": "Apache-2.0",
-	"uid": "sonicexe"
+	"uid": "sonicexe",
+	"preload": {
+		"characters": [],
+		"graphics": []
+	}
 }

@@ -1,0 +1,15 @@
+{
+	"graphic": "menu/main/freeplay",
+	"action":
+	{
+		"type": "customState",
+        "state": "FreeplayState"
+	},
+    "transition":
+	{
+		"instant": false,
+		"sound": "confirmMenu",
+		"stopMusic": false
+	},
+	"sort": 200
+}
