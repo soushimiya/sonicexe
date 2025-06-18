@@ -1,2 +1,2 @@
-# dummyMod
-dummy mod for fps plus bruh
+# Vs. Sonic.exe (FPS Plus Port)
+nvm this sucks ass

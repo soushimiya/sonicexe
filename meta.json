@@ -1,9 +1,9 @@
 {
-	"title":"Dummy Mod",
-	"description":"Dummy Modding Template for FNF' FPS Plus",
+	"title":"Vs. Sonic.exe",
+	"description":"Join bf and gf as they rap for their life against a creepypasta legend!",
 	"contributors": [],
 	"api_version": "1.6.0",
-	"mod_version": "1.0.0",
+	"mod_version": "2.5",
 	"license": "Apache-2.0",
-	"uid": "dummyMod"
+	"uid": "sonicexe"
 }
