@@ -63,7 +63,7 @@ class Hud extends Script
             strum.y = FlxG.height - 150;
         }
         else {
-            strum.y = 50;
+            strum.y = 55;
         }
     }
 

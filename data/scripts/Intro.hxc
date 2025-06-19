@@ -1,0 +1,17 @@
+package sonicexe;
+
+import flixel.FlxG;
+import extensions.flixel.FlxTextExt;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.ui.FlxBar;
+import flixel.FlxSprite;
+import flixel.math.FlxMath;
+import flixel.util.FlxStringUtil;
+
+class Intro extends Script
+{
+    function create()
+    {
+    }
+}

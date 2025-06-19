@@ -1,0 +1,12 @@
+package sonicexe;
+
+import Character;
+
+class Global extends Script
+{
+    function create()
+    {
+        playstate.camOffsetAmount = 10;
+        Character.LOOP_ANIM_ON_HOLD = false; // Not recommended but I don't care
+    }
+}

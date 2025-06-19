@@ -29,6 +29,8 @@ class PsychEventConverter
         {
             for (event in section.sectionNotes)
             {
+                if (event[1] != -1) // chart file w/ event thing support ig
+                    continue;
                 // then doing converting stuff lol
                 var eventTime = event[0];
                 var eventName = event[2];
